@@ -41,6 +41,10 @@ public abstract class UnaryExpresion:Expresion
     protected string ExpresionOperator="";
     protected Expresion InternalExpresion=null!;
 
+    public bool ExpressionNULL()
+    {
+        return InternalExpresion == null;
+    }
     public override char GetAVariable()
     {
         return InternalExpresion.GetAVariable();
