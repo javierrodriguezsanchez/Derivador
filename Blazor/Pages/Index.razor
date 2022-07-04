@@ -97,12 +97,25 @@
     
     private bool DisableOper()
     {
+        
         if(Values.Count > 0){
-            foreach (var item in typeof(BinaryExpresion).Assembly.GetTypes().Where(t=>t.BaseType==typeof(BinaryExpresion)))
+            if(object.Equals(Values.Last().GetType().BaseType, typeof(BinaryExpresion)))
             {
-                if(Values.Last().GetType() == item && (((BinaryExpresion)(Values.Last())).ExpressionNULL()) && Number.Length == 0)
-                    return true;
+                foreach (var item in typeof(BinaryExpresion).Assembly.GetTypes().Where(t=>t.BaseType==typeof(BinaryExpresion)))
+                {
+                    if(Values.Last().GetType() == item && ((BinaryExpresion)(Values.Last())).ExpressionNULL() && Number.Length == 0)
+                        return true;
+                }
             }
+            else if(object.Equals(Values.Last().GetType().BaseType, typeof(UnaryExpresion)))
+            {
+                foreach (var item in typeof(UnaryExpresion).Assembly.GetTypes().Where(t=>t.BaseType==typeof(UnaryExpresion)))
+                {
+                    if(Values.Last().GetType() == item && ((UnaryExpresion)(Values.Last())).ExpressionNULL() && Number.Length == 0)
+                        return true;
+                }
+            }
+            
         }
         return false;
     }
